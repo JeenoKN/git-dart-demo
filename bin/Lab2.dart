@@ -43,7 +43,7 @@ void main() async {
   // Menu Loop
   while (true) {
     print("===== Expense Tracking App =====");
-    print("1. Show all");
+    print("1. All expenses");
     print("2. Today's expense");
     print("3. Exit");
     stdout.write("Choose: ");
