@@ -127,32 +127,34 @@ void main() async {
         print("Invalid input for new expense");
       }
     } else if (choice == "5") {
-      printAllExpenses(
-        jsonDecode(
-              (await http.get(
-                Uri.parse('http://localhost:3000/expenses?user_id=$userId'),
-              )).body,
-            )
-            as List<dynamic>,
+      final allExpensesUrl = Uri.parse(
+        'http://localhost:3000/expenses?user_id=$userId',
       );
-      stdout.write("Enter expense ID to delete: ");
-      String? idStr = stdin.readLineSync()?.trim();
-      int? id = int.tryParse(idStr ?? "");
-      if (id != null) {
-        final deleteUrl = Uri.parse(
-          'http://localhost:3000/deleteexpense?id=$id&user_id=$userId',
-        );
-        final deleteResponse = await http.delete(deleteUrl);
-        if (deleteResponse.statusCode == 200) {
-          print("Expense deleted successfully");
+      final allResponse = await http.get(allExpensesUrl);
+      if (allResponse.statusCode == 200) {
+        final expenses = jsonDecode(allResponse.body) as List<dynamic>;
+        printAllExpenses(expenses);
+        stdout.write("Enter expense ID to delete: ");
+        String? idStr = stdin.readLineSync()?.trim();
+        int? id = int.tryParse(idStr ?? "");
+        if (id != null) {
+          final deleteUrl = Uri.parse(
+            'http://localhost:3000/deleteexpense?id=$id&user_id=$userId',
+          );
+          final deleteResponse = await http.delete(deleteUrl);
+          if (deleteResponse.statusCode == 200) {
+            print("Deleted!");
+          } else {
+            print("Error ${deleteResponse.statusCode}: ${deleteResponse.body}");
+          }
         } else {
-          print("Error ${deleteResponse.statusCode}: ${deleteResponse.body}");
+          print("Invalid expense ID");
         }
       } else {
-        print("Invalid expense ID");
+        print("Error ${allResponse.statusCode}: ${allResponse.body}");
       }
     } else if (choice == "6") {
-      print("Bye");
+      print("bye");
       break;
     } else {
       print("Invalid choice");
@@ -174,7 +176,9 @@ void printAllExpenses(List<dynamic> expenses) {
         expense.containsKey('date')) {
       total += (expense['paid'] as int);
       String dateStr = expense['date'].toString().split(' ')[0];
-      print("${expense['item']} : ${expense['paid']} : $dateStr");
+      print(
+        "${expense.containsKey('id') ? '${expense['id']} ' : ''}${expense['item']} : ${expense['paid']} : $dateStr",
+      );
     } else {
       print("Invalid expense data: $expense");
     }
