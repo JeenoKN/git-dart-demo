@@ -68,6 +68,49 @@ void main() async {
         print("Error ${todayResponse.statusCode}: ${todayResponse.body}");
       }
     } else if (choice == "3") {
+<<<<<<< Updated upstream
+=======
+      stdout.write("Enter item to search: ");
+      String? searchItem = stdin.readLineSync()?.trim();
+      if (searchItem != null && searchItem.isNotEmpty) {
+        final searchUrl = Uri.parse(
+          'http://localhost:3000/search?user_id=$userId&item=$searchItem',
+        );
+        final searchResponse = await http.get(searchUrl);
+        if (searchResponse.statusCode == 200) {
+          final expenses = jsonDecode(searchResponse.body) as List<dynamic>;
+          printSearchExpenses(expenses);
+        } else {
+          print("Error ${searchResponse.statusCode}: ${searchResponse.body}");
+        }
+      } else {
+        print("Invalid search term");
+      }
+      } else if (choice == "4") {
+  print("========== Add new item ==========");
+  stdout.write("Item: ");
+  String? item = stdin.readLineSync()?.trim();
+  stdout.write("Paid: ");
+  String? paidStr = stdin.readLineSync()?.trim();
+  int? paid = int.tryParse(paidStr ?? "");
+  if (item != null && item.isNotEmpty && paid != null) {
+    final body = {"user_id": userId, "item": item, "paid": paid, "date": DateTime.now().toIso8601String()};
+    final addUrl = Uri.parse('http://localhost:3000/addexpense');
+    final addResponse = await http.post(
+      addUrl,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(body),
+    );
+    if (addResponse.statusCode == 200) {
+      print("Inserted!");
+    } else {
+      print("Error ${addResponse.statusCode}: ${addResponse.body}");
+    }
+  } else {
+    print("Invalid input for new expense");
+  }
+    } else if (choice == "6") {
+>>>>>>> Stashed changes
       print("Bye");
       break;
     } else {
