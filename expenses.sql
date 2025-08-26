@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 26, 2025 at 09:05 AM
+-- Generation Time: Aug 26, 2025 at 08:04 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -43,8 +43,7 @@ INSERT INTO `expense` (`id`, `item`, `paid`, `date`, `user_id`) VALUES
 (1, 'lunch', 70, '2025-08-20 17:36:42', 1),
 (2, 'coffee', 45, '2025-08-20 16:36:42', 1),
 (3, 'rent', 1600, '2025-08-20 15:36:42', 1),
-(4, 'lunch', 50, '2025-08-20 18:36:42', 3),
-(6, 'ิีbun', 20, '2025-08-26 14:00:51', 3);
+(4, 'lunch', 50, '2025-08-20 18:36:42', 2);
 
 -- --------------------------------------------------------
 
@@ -92,7 +91,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `expense`
 --
 ALTER TABLE `expense`
-  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
