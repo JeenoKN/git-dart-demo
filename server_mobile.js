@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 // password generator
 app.get('/password/:pass', (req, res) => {
   const password = req.params.pass;
-  bcrypt.hash(password, 10, function(err, hash) {
+  bcrypt.hash(password, 10, function (err, hash) {
     if (err) {
       return res.status(500).send('Hashing error');
     }
@@ -19,16 +19,16 @@ app.get('/password/:pass', (req, res) => {
 
 // login
 app.post('/login', (req, res) => {
-  const {username, password} = req.body;
+  const { username, password } = req.body;
   const sql = "SELECT id, password FROM users WHERE username = ?";
-  con.query(sql, [username], function(err, results) {
+  con.query(sql, [username], function (err, results) {
     if (err) {
       return res.status(500).send("Database server error");
     }
     if (results.length != 1) {
       return res.status(401).send("Wrong username");
     }
-    bcrypt.compare(password, results[0].password, function(err, same) {
+    bcrypt.compare(password, results[0].password, function (err, same) {
       if (err) {
         return res.status(500).send("Hashing error");
       }
@@ -128,6 +128,20 @@ app.post('/addexpense', (req, res) => {
   con.query(sql, [user_id, item, paid, date], function (err, result) {
     if (err) {
       return res.status(500).send("Database insert error");
+    }
+    res.sendStatus(200);
+  });
+});
+// Delete an expense
+app.delete('/deleteexpense', (req, res) => {
+  const { id, user_id } = req.query;
+  const sql = "DELETE FROM expense WHERE id = ? AND user_id = ?";
+  con.query(sql, [id, user_id], function (err, result) {
+    if (err) {
+      return res.status(500).send("Database delete error");
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).send("Expense not found");
     }
     res.sendStatus(200);
   });
