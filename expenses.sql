@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 26, 2025 at 07:54 AM
+-- Generation Time: Aug 26, 2025 at 08:04 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -63,7 +63,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`) VALUES
 (1, 'Lisa', '$2b$10$Zc8P.Sg44Sd2lurXEnk4ouQEL5H/CwFnmZGjJMb3op7S5vrmWVjay'),
-(2, 'Jeeno', '$2b$10$15Ov7kAOcIM3VUQzCsRgOu0S4wFqf9zfbkx0tHfSM2zHmj06C4MKG');
+(2, 'Jeeno', '$2b$10$15Ov7kAOcIM3VUQzCsRgOu0S4wFqf9zfbkx0tHfSM2zHmj06C4MKG'),
+(3, 'Tom', '$2b$10$bbYKlyJM6NQGDamx9aP0Ge9O2XnqLpFXPA02tpCG4tPdvJuqWmwaq');
 
 --
 -- Indexes for dumped tables
@@ -96,7 +97,7 @@ ALTER TABLE `expense`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
