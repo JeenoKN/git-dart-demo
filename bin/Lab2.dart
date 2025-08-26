@@ -67,7 +67,26 @@ void main() async {
       } else {
         print("Error ${todayResponse.statusCode}: ${todayResponse.body}");
       }
-      
+      } else if (choice == "3") {
+  stdout.write("Item to search: ");
+  String? searchItem = stdin.readLineSync()?.trim();
+  if (searchItem != null && searchItem.isNotEmpty) {
+    final searchUrl = Uri.parse('http://localhost:3000/search?user_id=$userId&item=$searchItem');
+    final searchResponse = await http.get(searchUrl);
+    if (searchResponse.statusCode == 200) {
+      final expenses = jsonDecode(searchResponse.body) as List<dynamic>;
+      print("========== Search expense ==========");
+      if (expenses.isEmpty) {
+        print("No item: $searchItem");
+      } else {
+        printSearchExpenses(expenses);
+      }
+    } else {
+      print("Error ${searchResponse.statusCode}: ${searchResponse.body}");
+    }
+  } else {
+    print("Invalid search term");
+  }
     } else if (choice == "6") {
       print("Bye");
       break;
@@ -103,6 +122,23 @@ void printTodayExpenses(List<dynamic> expenses) {
   }
   int total = 0;
   print("Today's expenses");
+  for (var expense in expenses) {
+    if (expense is Map && expense.containsKey('item') && expense.containsKey('paid') && expense.containsKey('date')) {
+      total += (expense['paid'] as int);
+      String dateStr = expense['date'].toString().split(' ')[0];
+      print("${expense['item']} : ${expense['paid']} : $dateStr");
+    } else {
+      print("Invalid expense data: $expense");
+    }
+  }
+  print("Total expenses = ${total}\$");
+}
+void printSearchExpenses(List<dynamic> expenses) {
+  if (expenses.isEmpty) {
+    return; // Handled by the outer if statement
+  }
+  int total = 0;
+  print("Search results");
   for (var expense in expenses) {
     if (expense is Map && expense.containsKey('item') && expense.containsKey('paid') && expense.containsKey('date')) {
       total += (expense['paid'] as int);

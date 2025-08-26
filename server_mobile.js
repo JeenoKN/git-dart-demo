@@ -110,6 +110,17 @@ app.get('/todayexpenses', (req, res) => {
   });
 });
 
+// Search expenses by item
+app.get('/search', (req, res) => {
+  const { user_id, item } = req.query;
+  const sql = "SELECT item, paid, date FROM expense WHERE user_id = ? AND item LIKE ?";
+  con.query(sql, [user_id, `%${item}%`], function (err, results) {
+    if (err) {
+      return res.status(500).send("Database error");
+    }
+    res.json(results);
+  });
+});
 
 // Server starts here
 const PORT = 3000;
