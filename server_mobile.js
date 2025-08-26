@@ -121,7 +121,17 @@ app.get('/search', (req, res) => {
     res.json(results);
   });
 });
-
+// Add new expense
+app.post('/addexpense', (req, res) => {
+  const { user_id, item, paid, date } = req.body;
+  const sql = "INSERT INTO expense (user_id, item, paid, date) VALUES (?, ?, ?, ?)";
+  con.query(sql, [user_id, item, paid, date], function (err, result) {
+    if (err) {
+      return res.status(500).send("Database insert error");
+    }
+    res.sendStatus(200);
+  });
+});
 // Server starts here
 const PORT = 3000;
 app.listen(PORT, () => {
