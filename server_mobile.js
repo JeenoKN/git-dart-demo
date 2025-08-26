@@ -88,7 +88,7 @@ app.get('/userid', (req, res) => {
 // Get all expenses for a user
 app.get('/expenses', (req, res) => {
   const { user_id } = req.query;
-  const sql = "SELECT item, paid, date FROM expense WHERE user_id = ?";
+  const sql = "SELECT id, item, paid, date FROM expense WHERE user_id = ?"; // Added id to SELECT
   con.query(sql, [user_id], function (err, results) {
     if (err) {
       return res.status(500).send("Database error");
@@ -96,6 +96,7 @@ app.get('/expenses', (req, res) => {
     res.json(results);
   });
 });
+
 
 // Get today's expenses for a user
 app.get('/todayexpenses', (req, res) => {
