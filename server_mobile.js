@@ -111,6 +111,7 @@ app.get('/todayexpenses', (req, res) => {
 });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 // Search expenses by item
 app.get('/search', (req, res) => {
   const { user_id, item } = req.query;
@@ -148,6 +149,8 @@ app.post('/addexpense', (req, res) => {
   });
 });
 >>>>>>> Stashed changes
+=======
+>>>>>>> parent of 5d0bc9f (Merge pull request #3 from JeenoKN/Search-expense)
 =======
 >>>>>>> parent of 5d0bc9f (Merge pull request #3 from JeenoKN/Search-expense)
 // Server starts here
