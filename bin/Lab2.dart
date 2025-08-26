@@ -74,23 +74,6 @@ void main() async {
         print("Error ${todayResponse.statusCode}: ${todayResponse.body}");
       }
     } else if (choice == "3") {
-      stdout.write("Enter item to search: ");
-      String? searchItem = stdin.readLineSync()?.trim();
-      if (searchItem != null && searchItem.isNotEmpty) {
-        final searchUrl = Uri.parse(
-          'http://localhost:3000/search?user_id=$userId&item=$searchItem',
-        );
-        final searchResponse = await http.get(searchUrl);
-        if (searchResponse.statusCode == 200) {
-          final expenses = jsonDecode(searchResponse.body) as List<dynamic>;
-          printSearchExpenses(expenses);
-        } else {
-          print("Error ${searchResponse.statusCode}: ${searchResponse.body}");
-        }
-      } else {
-        print("Invalid search term");
-      }
-    } else if (choice == "6") {
       print("Bye");
       break;
     } else {
