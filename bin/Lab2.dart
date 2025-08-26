@@ -169,7 +169,9 @@ void printAllExpenses(List<dynamic> expenses) {
   }
   int total = 0;
   print("All expenses");
-  for (var expense in expenses) {
+  
+  for (int i = 0; i < expenses.length; i++) {
+    var expense = expenses[i];
     if (expense is Map &&
         expense.containsKey('item') &&
         expense.containsKey('paid') &&
@@ -177,10 +179,10 @@ void printAllExpenses(List<dynamic> expenses) {
       total += (expense['paid'] as int);
       String dateStr = expense['date'].toString().split(' ')[0];
       print(
-        "${expense.containsKey('id') ? '${expense['id']} ' : ''}${expense['item']} : ${expense['paid']} : $dateStr",
+        "${i + 1}. ${expense.containsKey('id') ? '${expense['id']} ' : ''}${expense['item']} : ${expense['paid']} : $dateStr",
       );
     } else {
-      print("Invalid expense data: $expense");
+      print("${i + 1}. Invalid expense data: $expense");
     }
   }
   print("Total expenses = ${total}\$");
