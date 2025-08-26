@@ -67,7 +67,8 @@ void main() async {
       } else {
         print("Error ${todayResponse.statusCode}: ${todayResponse.body}");
       }
-    } else if (choice == "3") {
+      
+    } else if (choice == "6") {
       print("Bye");
       break;
     } else {
